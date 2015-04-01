@@ -1,0 +1,14 @@
+<div>
+	<table class="table table-condensed table-striped">
+		<thead>
+			<tr>
+				<th data-ng-repeat="column in columns"><p>{{column.displayName}}</p></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="record in records">
+				<td data-ng-repeat="column in columns"><input type="text" data-ng-model="record[column.name]" /></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
