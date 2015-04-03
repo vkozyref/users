@@ -1,6 +1,7 @@
 (function(){
 	angular.module('users').controller('userListController', ['$scope', 'dataHolder', function($scope, dataHolder){
-				$scope.gridOptions = {
+		$scope.gridOptions = {
+			tableName: 'Users',
 			columnsInfo: [
 				{
 					name: 'id',
@@ -10,22 +11,26 @@
 				{
 					name: 'firstName',
 					displayName: 'First Name',
-					type: 'text'
+					type: 'text',
+					bootstrapWidth: 3
 				},
 				{
 					name: 'secondName',
 					displayName: 'Second Name',
-					type: 'text'
+					type: 'text',
+					bootstrapWidth: 3
 				},
 				{
 					name: 'email',
 					displayName: 'Email',
-					type: 'text'
+					type: 'text',
+					bootstrapWidth: 3
 				},
 				{
 					name: 'age',
 					displayName: 'Age',
-					type: 'number'
+					type: 'number',
+					bootstrapWidth: 3
 				}
 			],
 			defaults: {
@@ -37,5 +42,5 @@
 				getRecords: dataHolder.getUsers
 			}
 		};
-	}]);	
+	}]);
 })();

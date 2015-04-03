@@ -1,0 +1,54 @@
+.table-row {
+	border-bottom: solid 1px;
+	min-height: 20px;
+	padding: 5px 0 5px;
+}
+
+.number-search-filter input {
+	width: 30px;
+}
+
+.super-table {	
+	border: solid 1px;
+}
+
+.table-header p, .table-header input[type='checkbox'] {
+	vertical-align: middle;
+}
+
+.table-header > .row {
+	background-color: #336699;
+	width: 100%;
+	padding: 0 1% 0 1%;
+}
+
+.super-table .row {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.table-body {
+	padding: 0 1% 0 1%;
+}
+
+.table-header p, .table-footer p {
+	margin-bottom: 5px;
+	margin-top: 5px;
+	font-weight: bold;
+	color: white;
+	display: inline-block;
+}
+
+.table-footer {	
+	background-color: #336699;
+	min-height: 5px;
+}
+
+.table-body {
+	margin-bottom: 1%;
+}
+
+.scrollable {
+	overflow: auto;
+	max-height: 400px;
+}

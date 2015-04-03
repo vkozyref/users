@@ -1,14 +1,58 @@
+
+<div class="super-table">
+	<div class="table-header">
+				<div class="row">
+					<div style="display:inline-block; padding-left: 3%;">
+						<p>{{options.tableName}}</p>
+					</div>
+					<div class="pull-right" style="display:inline-block;">
+						<label for="turnOnPaging{{options.tableName}}"><p>Turn on paging</p></label>
+						<input type="checkbox" id="turnOnPaging{{options.tableName}}" data-ng-model="paging"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
+						<div><p>{{column.displayName}}</p></div>						
+						<div data-ng-if="column.type=='text'">
+							<input type="text" data-ng-model="searchFilters[column.name]"/>
+						</div>
+						<div data-ng-if="column.type=='number'" class="number-search-filter">
+							<label for="{{colunm.name}}from"><p>From</p></label>
+							<input id="{{colunm.name}}from" type="text" data-ng-model="searchFilters[column.name].from"/>
+							<label for="{{colunm.name}}to"><p>To</p></label>
+							<input type="text" id="{{colunm.name}}to" data-ng-model="searchFilters[column.name].to"/>
+						</div>					
+					</div>
+				</div>
+			</div>
+		<div class="table-body" data-ng-class="{'scrollable': !paging}">
+			<div data-ng-repeat="record in records">
+				<div class="row table-row">
+					<div class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
+						<input type="text" data-ng-model="record[column.name]" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="table-footer">
+			<div data-ng-show="!!paging" class="row text-center">
+				<button>&lt&lt</button>
+				<button>&lt</button>
+				<p>1{{currentPage}}</p>
+				<button>&gt</button>
+				<button>&gt&gt</button>
+			<div>
+		</div>
+</div>
+
 <div>
-	<table class="table table-condensed table-striped">
-		<thead>
-			<tr>
-				<th data-ng-repeat="column in columns"><p>{{column.displayName}}</p></th>
-			</tr>
-		</thead>
-		<tbody>
+	<table>
 			<tr data-ng-repeat="record in records">
-				<td data-ng-repeat="column in columns"><input type="text" data-ng-model="record[column.name]" /></td>
+				
+					<td class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
+						<input type="text" data-ng-model="record[column.name]" />
+					</td>
+				
 			</tr>
-		</tbody>
 	</table>
 </div>
