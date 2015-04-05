@@ -46,16 +46,4 @@
 			}
 		};
 	}]);
-
-	function edit(records, callback){
-
-	}
-
-	function remove(records){
-
-	}
-
-	function save(records){
-
-	}
 })();

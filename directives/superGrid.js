@@ -7,6 +7,22 @@
 				options: '='
 			},
 			link: function(scope, elem, attrs){
+				scope.sort = sort;
+				scope.isPreviousPageAvailable = isPreviousPageAvailable;
+				scope.isNextPageAvailable = isNextPageAvailable;
+				scope.goToThePreviousPage = goToThePreviousPage;
+				scope.goToTheFirstPage = goToTheFirstPage;
+				scope.goToTheNextPage = goToTheNextPage;
+				scope.goToTheLastPage = goToTheLastPage;
+
+				scope.selectRow = selectRow;
+				scope.save = save;
+				scope.edit = edit;
+				scope.showEditor = showEditor;
+				scope.remove = remove;
+
+				scope.anySelectedRows = anySelectedRows;
+				
 				scope.columns = scope.options.columnsInfo.filter(function(c){
 					return !c.hidden;
 				});
@@ -43,27 +59,12 @@
 
 				scope.$watch('paging.page', function(){
 					getRecords();
-				})
+				});
 
 				scope.$watch('paging.size', function(){
 					scope.paging.page = 1;
 					getRecords();
-				})
-
-				scope.sort = sort;
-				scope.isPreviousPageAvailable = isPreviousPageAvailable;
-				scope.isNextPageAvailable = isNextPageAvailable;
-				scope.goToThePreviousPage = goToThePreviousPage;
-				scope.goToTheFirstPage = goToTheFirstPage;
-				scope.goToTheNextPage = goToTheNextPage;
-				scope.goToTheLastPage = goToTheLastPage;
-
-				scope.selectRow = selectRow;
-				scope.save = save;
-				scope.edit = edit;
-				scope.remove = remove;
-
-				scope.anySelectedRows = anySelectedRows;
+				});				
 
 				function isPreviousPageAvailable(){
 					return scope.paging.page > 1;
@@ -137,12 +138,21 @@
 					scope.options.actions.saveRecords(scope.records);
 				}
 
-				function edit(){
+				function showEditor(){
 					for(var i=0; i<selectedRows.length - 1; i++){
 						unselectRecord(selectedRows[i]);
 					}
 
-					alert(selectedRows[0]);
+					scope.editable = selectedRows[0];
+					$('#editorPopUp').modal('show');
+				}
+
+				function edit(){
+					scope.options.actions.editRecord(scope.editable);
+					scope.editable.selected = false;
+					getRecords();
+					selectedRows = [];
+					$('#editorPopUp').modal('hide');
 				}
 
 				function remove(){
