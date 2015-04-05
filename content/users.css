@@ -10,13 +10,22 @@
 
 .super-table {	
 	border: solid 1px;
+
+}
+
+.a tr {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
 }
 
 .table-header p, .table-header input[type='checkbox'] {
 	vertical-align: middle;
 }
 
-.table-header > .row {
+.table-header {
+	overflow-y: hidden;
+	padding-left: 3%;
 	background-color: #336699;
 	width: 100%;
 	padding: 0 1% 0 1%;
@@ -51,4 +60,15 @@
 .scrollable {
 	overflow: auto;
 	max-height: 400px;
+}
+
+.page-size {
+	display: inline-block;
+	color: white;
+	width: 20px;
+	font-weight: bold;
+}
+
+.selected-row {
+	background-color: #00FFCC;
 }

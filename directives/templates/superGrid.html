@@ -1,18 +1,22 @@
-
-<div class="super-table">
+<div style="overflow-x: hidden; width: 800px;">
 	<div class="table-header">
-				<div class="row">
-					<div style="display:inline-block; padding-left: 3%;">
-						<p>{{options.tableName}}</p>
-					</div>
-					<div class="pull-right" style="display:inline-block;">
-						<label for="turnOnPaging{{options.tableName}}"><p>Turn on paging</p></label>
-						<input type="checkbox" id="turnOnPaging{{options.tableName}}" data-ng-model="paging"/>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
-						<div><p>{{column.displayName}}</p></div>						
+		<p>{{options.tableName}}</p>
+	</div>
+	<div style="padding-top:1%; padding-left:2%;">
+		<button data-ng-click="save()">Save</button>
+		<button data-ng-click="edit()" data-ng-disabled="!anySelectedRows()">Edit</button>
+		<button data-ng-click="remove()" data-ng-disabled="!anySelectedRows()">Remove</button>
+		<div style="display:inline-block;">
+			<label for="turnOnPaging{{options.tableName}}"><p>Show All</p></label>
+			<input type="checkbox" id="turnOnPaging{{options.tableName}}" data-ng-model="paging.showAll"/>
+		</div>
+	</div>
+	<div>
+		<table class="a table table-stripped table-condensed table-responsive" >
+			<thead>
+				<tr>
+					<th class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
+						<div><p data-ng-click="sort(column.name)">{{column.displayName}}</p></div>		
 						<div data-ng-if="column.type=='text'">
 							<input type="text" data-ng-model="searchFilters[column.name]"/>
 						</div>
@@ -22,37 +26,30 @@
 							<label for="{{colunm.name}}to"><p>To</p></label>
 							<input type="text" id="{{colunm.name}}to" data-ng-model="searchFilters[column.name].to"/>
 						</div>					
-					</div>
-				</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody style="overflow-x: hidden; overflow-y: auto; max-height: 200px; display: block;">
+					<tr data-ng-click="selectRow(record)" data-ng-repeat="record in records" data-ng-class="{'selected-row': record.selected}">
+						
+							<td class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
+								<div contenteditable data-ng-model="record[column.name]"></div>
+							</td>
+					</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="table-footer">
+		<div data-ng-show="!paging.showAll" class="row text-center">
+			<div class="pull-left" style="margin-left:3%; display: inline-block;">
+				<p>Page size: </p>
+				<div contenteditable data-ng-model="paging.size" class="page-size"></div>
 			</div>
-		<div class="table-body" data-ng-class="{'scrollable': !paging}">
-			<div data-ng-repeat="record in records">
-				<div class="row table-row">
-					<div class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
-						<input type="text" data-ng-model="record[column.name]" />
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="table-footer">
-			<div data-ng-show="!!paging" class="row text-center">
-				<button>&lt&lt</button>
-				<button>&lt</button>
-				<p>1{{currentPage}}</p>
-				<button>&gt</button>
-				<button>&gt&gt</button>
-			<div>
-		</div>
-</div>
-
-<div>
-	<table>
-			<tr data-ng-repeat="record in records">
-				
-					<td class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
-						<input type="text" data-ng-model="record[column.name]" />
-					</td>
-				
-			</tr>
-	</table>
+			<button style="margin-left: -95px;" data-ng-disabled="!isPreviousPageAvailable()" data-ng-click="goToTheFirstPage()">&lt&lt</button>
+			<button data-ng-disabled="!isPreviousPageAvailable()" data-ng-click="goToThePreviousPage()">&lt</button>
+			<p>{{paging.page}}</p>
+			<button data-ng-disabled="!isNextPageAvailable()" data-ng-click="goToTheNextPage()">&gt</button>
+			<button data-ng-disabled="!isNextPageAvailable()" data-ng-click="goToTheLastPage()">&gt&gt</button>			
+		<div>
+	</div>
 </div>

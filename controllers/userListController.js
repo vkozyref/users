@@ -39,8 +39,23 @@
 				sort: null
 			},
 			actions: {
-				getRecords: dataHolder.getUsers
+				getRecords: dataHolder.getUsers,
+				saveRecords: dataHolder.saveUsers,
+				editRecord: dataHolder.editUser,
+				removeRecords: dataHolder.removeUsers
 			}
 		};
 	}]);
+
+	function edit(records, callback){
+
+	}
+
+	function remove(records){
+
+	}
+
+	function save(records){
+
+	}
 })();

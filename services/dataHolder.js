@@ -1,7 +1,10 @@
 (function(){
-	angular.module('users').factory('dataHolder', function(){
+	angular.module('users').factory('dataHolder', ['$filter', function($filter){
 		var service = {
-			getUsers: getUsers
+			getUsers: getUsers,
+			saveUsers: saveUsers,
+			editUser: editUser,
+			removeUsers: removeUsers
 		};
 
 		var records = [
@@ -98,10 +101,90 @@
 			}
 		];
 
-		function getUsers(pagingInfo, filter){
-			return records;
+		function getUsers(pagingInfo, filters, sorting){
+			var result = [];
+			
+			result = records.filter(function(x){
+				return search(x, filters);
+			});
+
+			result = sort(result, sorting);
+
+			result = setPaging(pagingInfo, result);			
+
+			return result;
+		}
+
+		function sort(list, criteria){
+			if(criteria.name){
+				var sortExpression = criteria.direction ? '+' : '-';
+				sortExpression += criteria.name;
+				return $filter('orderBy')(list, sortExpression);
+			}
+
+			return list;
+		}
+
+		function setPaging(pagingInfo, result){
+			if(!pagingInfo.showAll){
+				var totalSize = result.length;
+				var startIndex = pagingInfo.size * (pagingInfo.page - 1);
+				var finishIndex = totalSize - startIndex < parseInt(pagingInfo.size) ?
+					totalSize : startIndex + parseInt(pagingInfo.size);
+				result = (totalSize == finishIndex) ? result.slice(startIndex)
+					: result.slice(startIndex, finishIndex);
+				result.pagesCount = totalSize % pagingInfo.size == 0 ? totalSize / pagingInfo.size
+					: parseInt(totalSize / pagingInfo.size) + 1;
+			}			
+
+			return result;
+		}
+
+		function search(item, filters){
+			var searchKeys = Object.keys(filters);
+			for(var key in searchKeys){
+				if(filters[searchKeys[key]]){
+					if(!filters[searchKeys[key]].hasOwnProperty('from') && !filters[searchKeys[key]].hasOwnProperty('to') 
+						&& item[searchKeys[key]].toLowerCase().indexOf(filters[searchKeys[key]].toLowerCase()) < 0){
+							return false;
+					}
+					if((filters[searchKeys[key]].hasOwnProperty('from') || filters[searchKeys[key]].hasOwnProperty('to'))
+						&& ((filters[searchKeys[key]].from && item[searchKeys[key]] < parseInt(filters[searchKeys[key]].from))
+							|| (filters[searchKeys[key]].to && item[searchKeys[key]] > parseInt(filters[searchKeys[key]].to)))){
+								return false;
+					}
+				}
+				
+			}
+			return true
+		}
+
+		function saveUsers(users){
+			for(var i=0; i < users.length; i++){
+				editUser(users[i]);
+			}
+		}
+
+		function editUser(user){
+			var editableUser = records.filter(function(x){
+					return x.id == user.id;
+				})[0];
+				editableUser.firstName = user.firstName;
+				editableUser.secondName = user.secondName;
+				editableUser.email = user.email;
+				editableUser.age = user.age;
+		}
+
+		function removeUsers(users){
+			for(var i=0; i < users.length; i++){
+				var user = records.filter(function(x){
+					return x.id == users[i].id;
+				})[0];
+				var index = records.indexOf(user);
+				records.splice(index, 1);
+			}
 		}
 
 		return service;
-	});
+	}]);
 })();
