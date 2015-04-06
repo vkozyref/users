@@ -2,6 +2,14 @@
 	width: 30px;
 }
 
+.number-search-filter p {
+	margin: 0;	
+}
+
+.number-search-filter label {
+	margin-bottom: 0;	
+}
+
 .scrollable-table tr {
 	display: table;
 	table-layout: fixed;

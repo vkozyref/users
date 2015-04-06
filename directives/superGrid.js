@@ -43,13 +43,11 @@
 				var defaultFilter = {};
 				scope.columns.forEach(function(x){
 					defaultFilter[x.name] = {
-						type: x.type;
+						type: x.type
 					};
 				});
 
-				scope.searchFilters = scope.options.defaults.filter || {
-
-				};
+				scope.searchFilters = scope.options.defaults.filter || defaultFilter;
 				
 				scope.$watch('searchFilters', function(){
 					$timeout(function() {

@@ -18,13 +18,13 @@
 					<th class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
 						<div><p data-ng-click="sort(column.name)">{{column.displayName}}</p></div>		
 						<div data-ng-if="isTextColumn(column.type)" class="search-fields">
-							<input type="text" data-ng-model="searchFilters[column.name]"/>
+							<input type="text" data-ng-model="searchFilters[column.name].value"/>
 						</div>
 						<div data-ng-if="isNumberColumn(column.type)" class="number-search-filter search-fields">
 							<label for="{{colunm.name}}from"><p>From</p></label>
-							<input id="{{colunm.name}}from" type="text" data-ng-model="searchFilters[column.name].from"/>
+							<input id="{{colunm.name}}from" type="text" data-ng-model="searchFilters[column.name].value.from"/>
 							<label for="{{colunm.name}}to"><p>To</p></label>
-							<input type="text" id="{{colunm.name}}to" data-ng-model="searchFilters[column.name].to"/>
+							<input type="text" id="{{colunm.name}}to" data-ng-model="searchFilters[column.name].value.to"/>
 						</div>					
 					</th>
 				</tr>

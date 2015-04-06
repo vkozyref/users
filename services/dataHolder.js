@@ -143,14 +143,14 @@
 		function search(item, filters){
 			var searchKeys = Object.keys(filters);
 			for(var key in searchKeys){
-				if(filters[searchKeys[key]]){
-					if(!filters[searchKeys[key]].hasOwnProperty('from') && !filters[searchKeys[key]].hasOwnProperty('to') 
-						&& item[searchKeys[key]].toLowerCase().indexOf(filters[searchKeys[key]].toLowerCase()) < 0){
+				if(filters[searchKeys[key]] && filters[searchKeys[key]].value){
+					if(filters[searchKeys[key]].type == 'text' 
+						&& item[searchKeys[key]].toLowerCase().indexOf(filters[searchKeys[key]].value.toLowerCase()) < 0){
 							return false;
 					}
-					if((filters[searchKeys[key]].hasOwnProperty('from') || filters[searchKeys[key]].hasOwnProperty('to'))
-						&& ((filters[searchKeys[key]].from && item[searchKeys[key]] < parseInt(filters[searchKeys[key]].from))
-							|| (filters[searchKeys[key]].to && item[searchKeys[key]] > parseInt(filters[searchKeys[key]].to)))){
+					if(filters[searchKeys[key]].type == 'number'
+						&& ((filters[searchKeys[key]].value.from && item[searchKeys[key]] < parseInt(filters[searchKeys[key]].value.from))
+							|| (filters[searchKeys[key]].value.to && item[searchKeys[key]] > parseInt(filters[searchKeys[key]].value.to)))){
 								return false;
 					}
 				}
