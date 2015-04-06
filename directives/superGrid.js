@@ -22,6 +22,8 @@
 				scope.remove = remove;
 
 				scope.anySelectedRows = anySelectedRows;
+				scope.isTextColumn = isTextColumn;
+				scope.isNumberColumn = isNumberColumn;
 				
 				scope.columns = scope.options.columnsInfo.filter(function(c){
 					return !c.hidden;
@@ -38,7 +40,16 @@
 				scope.paging.showAll = !scope.options.defaults.paging;
 				scope.sorting = scope.options.defaults.sort || {};
 
-				scope.searchFilters = scope.options.defaults.filter || {};
+				var defaultFilter = {};
+				scope.columns.forEach(function(x){
+					defaultFilter[x.name] = {
+						type: x.type;
+					};
+				});
+
+				scope.searchFilters = scope.options.defaults.filter || {
+
+				};
 				
 				scope.$watch('searchFilters', function(){
 					$timeout(function() {
@@ -163,6 +174,14 @@
 
 				function anySelectedRows(){
 					return !!selectedRows.length;
+				}
+
+				function isTextColumn(columnType){
+					return columnType == 'text';
+				}
+
+				function isNumberColumn(columnType){
+					return columnType == 'number';
 				}
 			}
 		};

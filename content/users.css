@@ -1,19 +1,8 @@
-.table-row {
-	border-bottom: solid 1px;
-	min-height: 20px;
-	padding: 5px 0 5px;
-}
-
-.number-search-filter input {
+.number-search-filter input[type='text'] {
 	width: 30px;
 }
 
-.super-table {	
-	border: solid 1px;
-
-}
-
-.a tr {
+.scrollable-table tr {
 	display: table;
 	table-layout: fixed;
 	width: 100%;
@@ -31,15 +20,6 @@
 	padding: 0 1% 0 1%;
 }
 
-.super-table .row {
-	margin-right: 0;
-	margin-left: 0;
-}
-
-.table-body {
-	padding: 0 1% 0 1%;
-}
-
 .table-header p, .table-footer p {
 	margin-bottom: 5px;
 	margin-top: 5px;
@@ -51,10 +31,6 @@
 .table-footer {	
 	background-color: #336699;
 	min-height: 5px;
-}
-
-.table-body {
-	margin-bottom: 1%;
 }
 
 .scrollable {
@@ -71,4 +47,38 @@
 
 .selected-row {
 	background-color: #00FFCC;
+}
+
+.search-fields p, .search-fields input[type='text'] {
+	font-weight: normal;
+}
+
+.table-actions {
+	padding-top:1%; 
+	padding-left:2%;
+}
+
+.table-actions div {
+	display: inline-block;
+}
+
+.table-body {
+	overflow-x: hidden; 
+	overflow-y: auto; 
+	max-height: 200px; 
+	display: block;
+}
+
+.footer-paging-size {
+	margin-left:3%; 
+	display: inline-block;
+}
+
+.popup-item-value {
+	margin-right: 5%; 
+	margin-left: 5%;
+}
+
+.paging-location {
+	margin-left: -95px;
 }
