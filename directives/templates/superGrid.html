@@ -14,7 +14,7 @@
 	<div>
 		<table class="scrollable-table table table-stripped table-condensed table-responsive" >
 			<thead>
-				<tr>
+				<tr data-ng-class="{'custom-error': filterIncorrect}">
 					<th class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
 						<div><p data-ng-click="sort(column.name)">{{column.displayName}}</p></div>		
 						<div data-ng-if="isTextColumn(column.type)" class="search-fields">
@@ -30,18 +30,17 @@
 				</tr>
 			</thead>
 			<tbody class="table-body">
-					<tr data-ng-click="selectRow(record)" data-ng-repeat="record in records" data-ng-class="{'selected-row': record.selected}">
-						
-							<td class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
-								<div contenteditable data-ng-model="record[column.name]"></div>
-							</td>
+					<tr data-ng-click="selectRow(record)" data-ng-repeat="record in records" data-ng-class="{'selected-row': record.selected, 'custom-error': record.failedSaving}">						
+						<td class="col-md-{{column.bootstrapWidth}} text-center" data-ng-repeat="column in columns">
+							<div contenteditable data-ng-model="record[column.name]"></div>
+						</td>
 					</tr>
 			</tbody>
 		</table>
 	</div>
 	<div class="table-footer">
 		<div data-ng-show="!paging.showAll" class="row text-center">
-			<div class="pull-left footer-paging-size">
+			<div class="pull-left footer-paging-size" data-ng-class="{'custom-error':incorrectPageSize}">
 				<p>Page size: </p>
 				<div contenteditable data-ng-model="paging.size" class="page-size"></div>
 			</div>
@@ -61,8 +60,8 @@
         <h4 class="modal-title">Edit user</h4>
       </div>
       <div class="modal-body">
-      	<form class="form-horizontal">
-	        <div data-ng-repeat="column in columns" class="form-group">
+      	<form class="form-horizontal" >
+	        <div data-ng-repeat="column in columns" class="form-group" data-ng-class="{'custom-error':editable[column.name].incorrectEdition}" >
 	        	<label class="col-sm-4 col-xs-4 col-md-4 control-label" for="{{column.name}}">{{column.displayName}}</label>
 	        	<div class="col-sm-7 col-xs-7 col-md-7">
 	        		<input class="form-control popup-item-value" type="text" data-ng-model="editable[column.name]" id="{{column.name}}" />

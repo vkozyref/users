@@ -90,3 +90,7 @@
 .paging-location {
 	margin-left: -95px;
 }
+
+.custom-error {
+	background-color: #FF3333;
+}
